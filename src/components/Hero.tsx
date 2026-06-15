@@ -38,7 +38,7 @@ export function Hero() {
                 transition={{ delay: 0.4 }}
                 className="mt-8 max-w-2xl text-lg text-foreground/50 leading-relaxed"
             >
-                I design and deploy end-to-end machine learning systems — from structured data analysis and feature engineering to validated models and production-ready APIs.
+                I build ML systems across the full stack — from data science and model fine-tuning to the production infrastructure that keeps them reliable: evaluation frameworks, feature stores, lineage tracking, and agent systems.
             </motion.p>
 
             <motion.div

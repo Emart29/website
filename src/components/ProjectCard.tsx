@@ -2,23 +2,12 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, ChevronUp, Github, Cpu, Layers, Target, Rocket, BarChart3 } from "lucide-react";
+import { ChevronDown, ChevronUp, Github, ExternalLink, FileText, BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Project } from "@/constants/data";
 
 interface ProjectProps {
-    project: {
-        id: string;
-        title: string;
-        subtitle: string;
-        problem: string;
-        approach: string;
-        architecture: string;
-        deployment: string;
-        impact: string;
-        tech: string[];
-        github: string;
-        status?: string;
-    };
+    project: Project;
 }
 
 export function ProjectCard({ project }: ProjectProps) {
@@ -32,30 +21,24 @@ export function ProjectCard({ project }: ProjectProps) {
             )}
         >
             <button
+                type="button"
                 onClick={() => setIsOpen(!isOpen)}
                 className="w-full text-left p-6 flex items-start justify-between gap-4"
             >
                 <div className="space-y-2">
-                    <div className="flex items-center gap-3">
-                        <span className="text-xs font-mono text-accent/60 uppercase tracking-widest">{project.subtitle}</span>
-                        {project.status && (
-                            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20 animate-pulse">
-                                {project.status}
-                            </span>
-                        )}
-                    </div>
+                    <span className="text-xs font-mono text-accent/60 uppercase tracking-widest">{project.label}</span>
                     <h3 className="text-xl font-bold text-foreground group-hover:text-accent transition-colors">
                         {project.title}
                     </h3>
                     <div className="flex flex-wrap gap-2 pt-2">
-                        {project.tech.map(t => (
+                        {project.stack.map(t => (
                             <span key={t} className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-foreground/40 border border-white/10">
                                 {t}
                             </span>
                         ))}
                     </div>
                 </div>
-                <div className="p-2 rounded-full bg-white/5 group-hover:bg-accent/10 transition-colors">
+                <div className="p-2 rounded-full bg-white/5 group-hover:bg-accent/10 transition-colors flex-shrink-0 mt-1">
                     {isOpen ? <ChevronUp className="w-5 h-5 text-accent" /> : <ChevronDown className="w-5 h-5 text-foreground/40 group-hover:text-accent" />}
                 </div>
             </button>
@@ -69,63 +52,54 @@ export function ProjectCard({ project }: ProjectProps) {
                         transition={{ duration: 0.3 }}
                         className="overflow-hidden"
                     >
-                        <div className="px-6 pb-8 pt-2 grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-border/30">
-                            <div className="space-y-6">
-                                <section>
-                                    <div className="flex items-center gap-2 text-accent mb-2">
-                                        <Target className="w-4 h-4" />
-                                        <h4 className="text-xs font-mono uppercase tracking-tighter">Problem</h4>
-                                    </div>
-                                    <p className="text-sm text-foreground/70 leading-relaxed">{project.problem}</p>
-                                </section>
+                        <div className="px-6 pb-8 pt-4 border-t border-border/30 space-y-6">
+                            <p className="text-sm text-foreground/70 leading-relaxed">
+                                {project.description}
+                            </p>
 
-                                <section>
-                                    <div className="flex items-center gap-2 text-accent mb-2">
-                                        <Cpu className="w-4 h-4" />
-                                        <h4 className="text-xs font-mono uppercase tracking-tighter">Approach</h4>
-                                    </div>
-                                    <p className="text-sm text-foreground/70 leading-relaxed">{project.approach}</p>
-                                </section>
-
-                                <section>
-                                    <div className="flex items-center gap-2 text-accent mb-2">
-                                        <Layers className="w-4 h-4" />
-                                        <h4 className="text-xs font-mono uppercase tracking-tighter">Architecture</h4>
-                                    </div>
-                                    <p className="text-sm text-foreground/70 leading-relaxed">{project.architecture}</p>
-                                </section>
-                            </div>
-
-                            <div className="space-y-6">
-                                <section>
-                                    <div className="flex items-center gap-2 text-accent mb-2">
-                                        <Rocket className="w-4 h-4" />
-                                        <h4 className="text-xs font-mono uppercase tracking-tighter">Deployment</h4>
-                                    </div>
-                                    <p className="text-sm text-foreground/70 leading-relaxed">{project.deployment}</p>
-                                </section>
-
-                                <section>
-                                    <div className="flex items-center gap-2 text-accent mb-2">
-                                        <BarChart3 className="w-4 h-4" />
-                                        <h4 className="text-xs font-mono uppercase tracking-tighter">Impact</h4>
-                                    </div>
-                                    <p className="text-sm bg-accent/5 p-3 rounded border border-accent/10 text-accent/90 font-medium">
-                                        {project.impact}
-                                    </p>
-                                </section>
-
-                                <div className="pt-4 flex gap-4">
+                            <div className="flex flex-wrap gap-3">
+                                <a
+                                    href={project.github}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2 px-4 py-2 bg-foreground text-background rounded font-medium text-sm hover:bg-accent transition-colors"
+                                >
+                                    <Github className="w-4 h-4" />
+                                    Source Code
+                                </a>
+                                {project.article && (
                                     <a
-                                        href={project.github}
+                                        href={project.article}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex-1 flex items-center justify-center gap-2 bg-foreground text-background py-2 rounded font-medium hover:bg-accent transition-colors"
+                                        className="flex items-center gap-2 px-4 py-2 border border-accent/30 text-accent rounded font-medium text-sm hover:bg-accent/10 transition-colors"
                                     >
-                                        <Github className="w-4 h-4" />
-                                        Source Code
+                                        <FileText className="w-4 h-4" />
+                                        Read Article
                                     </a>
-                                </div>
+                                )}
+                                {project.docs && (
+                                    <a
+                                        href={project.docs}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center gap-2 px-4 py-2 border border-white/10 text-foreground/60 rounded font-medium text-sm hover:bg-white/5 hover:text-white transition-colors"
+                                    >
+                                        <BookOpen className="w-4 h-4" />
+                                        Docs
+                                    </a>
+                                )}
+                                {project.demo && (
+                                    <a
+                                        href={project.demo}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center gap-2 px-4 py-2 border border-white/10 text-foreground/60 rounded font-medium text-sm hover:bg-white/5 hover:text-white transition-colors"
+                                    >
+                                        <ExternalLink className="w-4 h-4" />
+                                        Live Demo
+                                    </a>
+                                )}
                             </div>
                         </div>
                     </motion.div>

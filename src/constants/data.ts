@@ -157,7 +157,7 @@ export const PROJECTS: Project[] = [
         tier: "data-science",
         title: "Hybrid Recommendation System: Collaborative + Content-Based",
         label: "Recommender Systems",
-        description: "Sophisticated product recommendation engine combining Collaborative Filtering, Content-Based Filtering, and Matrix Factorization (SVD) to deliver personalized recommendations. Addresses cold start problem through hybrid approach. Evaluated with precision@k, recall@k, and NDCG metrics.",
+        description: "Sophisticated product recommendation engine combining Collaborative Filtering, Content-Based Filtering, and Matrix Factorization (SVD) to deliver personalized recommendations. Addresses the cold start problem through a hybrid approach. Evaluated with precision@k, recall@k, and NDCG metrics.",
         stack: ["Python", "scikit-learn", "pandas", "NumPy", "SVD"],
         github: "https://github.com/Emart29/recommendation-system",
         article: "https://medium.com/@Emar7/building-a-hybrid-recommendation-system-combining-collaborative-filtering-content-based-and-6be4e400ec3c?source=user_profile_page---------10-------------02f3a17b5bee----------------------",
